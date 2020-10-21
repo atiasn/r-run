@@ -1,0 +1,26 @@
+language: r
+
+services:
+    - docker
+
+os:
+    - linux
+
+cache: packages
+
+before_install:
+    - docker build -t ritboy/upload-to-alioss .
+    - docker run --rm -v ${PWD}:/data ritboy/upload-to-alioss cp /uploadToAli /data
+
+install:
+    - Rscript -e 'install.packages(c("RISmed", "openxlsx"))'
+
+after_failure:
+    - ls -alh
+
+after_success:
+    - ls
+    - ./uploadToAli sm.xlsx
+
+script:
+    - Rscript run_script.R
