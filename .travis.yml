@@ -11,9 +11,11 @@ cache: packages
 before_install:
     - docker build -t ritboy/upload-to-alioss .
     - docker run --rm -v ${PWD}:/data ritboy/upload-to-alioss cp /uploadToAli /data
+    - cat run_script.R | grep -P 'library(.*)' -o | tr -d "library(.*)" > install-library.txt
 
 install:
-    - Rscript -e 'install.packages(c("RISmed", "openxlsx"))'
+    - Rscript -e 'lib_list <- c(readLines("install-libray.txt"))'
+    - Rscript -e 'install.packages(lib_list)'
 
 after_failure:
     - ls -alh
