@@ -14,7 +14,7 @@ before_install:
     - cat run_script.R | grep -P 'library(.*)' -o | tr -d "library(.*)" > install-library.txt
 
 install:
-    - Rscript -e 'lib_list <- c(readLines("install-libray.txt"))'
+    - Rscript -e 'lib_list <- c(readLines("install-library.txt"))'
     - Rscript -e 'install.packages(lib_list)'
 
 after_failure:
