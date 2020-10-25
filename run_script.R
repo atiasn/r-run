@@ -1,15 +1,1 @@
-library(RISmed)
-search_topic <- c('steroid myopathy')
-search_query <- EUtilsSummary(search_topic,retmax=2000,mindate=1990,maxdate=2020)
-summary(search_query)
-QueryId(search_query)
-sm<- EUtilsGet(search_query)
-class(sm)
-sm<- data.frame('Title'=ArticleTitle(sm),'Abstract'=AbstractText(sm),'journal'=ISOAbbreviation(sm),'ISSN'=ISSN(sm))
-head(sm,1)
-sm$Abstract <- as.character(sm$Abstract)
-sm$Abstract <- gsub(","," ",sm$Abstract,fixed = TRUE)
-str(sm)
-
-library(openxlsx)
-write.xlsx(sm,file ='sm.xlsx')
+ddddddddddddd
