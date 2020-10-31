@@ -1,7 +1,5 @@
-install.packages("RISmed")
 library(RISmed)
 
-install.packages("lubridate")
 library(lubridate)
 
 search_topic <- c('SLE')
@@ -17,7 +15,6 @@ pubmed_dataSLE$Abstract <- gsub(",", " ", pubmed_dataSLE$Abstract, fixed = TRUE)
 str(pubmed_dataSLE)
 View(pubmed_dataSLE)
 
-install.packages("openxlsx")
 library(openxlsx)
 ISSN1<- read.xlsx('IF.xlsx',sheet=1)
 View(ISSN1)

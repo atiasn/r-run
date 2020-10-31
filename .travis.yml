@@ -37,7 +37,7 @@ after_failure:
     - echo "failure" > ${RESULT_DIR}/run_status
     - cd ${RESULT_DIR}
     - git add .
-    - git commit -m "运行失败"
+    - git commit -m "run failure"
     - git push
 
 after_success:
@@ -46,8 +46,8 @@ after_success:
     - ./uploadToAli sm.xlsx > ${RESULT_DIR}/excel_url.txt
     - cd ${RESULT_DIR}
     - git add .
-    - git commit -m "运行成功"
+    - git commit -m "run success"
     - git push
 
 script:
-    - Rscript run_script.R > ${RESULT_DIR}/travis.log
+    - Rscript run_script.R > ${RESULT_DIR}/travis.log 2>&1
