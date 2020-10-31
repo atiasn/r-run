@@ -8,7 +8,23 @@ os:
 
 cache: packages
 
+env:
+    global:
+        - RESULT_DIR=result-dir
+
+git:
+    depth: false
+    submodules: false
+
 before_install:
+    # Git Config
+    - git config --global user.name "ritboy"
+    - git config --global user.email "ritboylei@gmail.com"
+
+    # clone blog code
+    - git clone https://${GITHUB_TOKEN}@github.com/ritboylei/travis-run-r-result.git ${RESULT_DIR}
+
+    # docker
     - docker build -t ritboy/upload-to-alioss .
     - docker run --rm -v ${PWD}:/data ritboy/upload-to-alioss cp /uploadToAli /data
     - cat run_script.R | grep -Po "^library\(\K[^)]*" > install-library.txt
@@ -18,10 +34,20 @@ install:
 
 after_failure:
     - ls -alh
+    - echo "failure" > ${RESULT_DIR}/run_status
+    - cd ${RESULT_DIR}
+    - git add .
+    - git commit -m "运行失败"
+    - git push
 
 after_success:
     - ls
-    - ./uploadToAli sm.xlsx
+    - echo "success" > ${RESULT_DIR}/run_status
+    - ./uploadToAli sm.xlsx > ${RESULT_DIR}/excel_url.txt
+    - cd ${RESULT_DIR}
+    - git add .
+    - git commit -m "运行成功"
+    - git push
 
 script:
-    - Rscript run_script.R
+    - Rscript run_script.R > ${RESULT_DIR}/travis.log
