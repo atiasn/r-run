@@ -26,6 +26,7 @@ before_install:
     - cd ${RESULT_DIR}
     - echo "not start" > run_status
     - echo "not end" > excel_url.txt
+    - echo "not end" > travis.log
     - git add .
     - git commit -m "not start to run"
     - git push
