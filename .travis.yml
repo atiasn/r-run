@@ -36,6 +36,7 @@ before_install:
     - docker build -t ritboy/upload-to-alioss .
     - docker run --rm -v ${PWD}:/data ritboy/upload-to-alioss cp /uploadToAli /data
     - cat run_script.R | grep -Po "^library\(\K[^)]*" > install-library.txt
+    - export EXCEL_FILE_NAME=`cat run_script.R | grep -Po "^write.xlsx\(\K[^)]*" | sed 's/ //g' | awk -F = '{print $2}' |sed 's/\"//g' | sed $'s/\'//g'`
 
 install:
     - Rscript -e 'lib_list <- c(readLines("install-library.txt"));install.packages(lib_list)'
@@ -52,7 +53,7 @@ after_failure:
 after_success:
     - ls
     - echo "success" > ${RESULT_DIR}/run_status
-    - ./uploadToAli sm.xlsx > ${RESULT_DIR}/excel_url.txt 2>&1
+    - ./uploadToAli ${EXCEL_FILE_NAME} > ${RESULT_DIR}/excel_url.txt 2>&1
     - cd ${RESULT_DIR}
     - git add .
     - git commit -m "run success"
