@@ -23,6 +23,13 @@ before_install:
 
     # clone blog code
     - git clone https://${GITHUB_TOKEN}@github.com/ritboylei/travis-run-r-result.git ${RESULT_DIR}
+    - cd ${RESULT_DIR}
+    - echo "not start" > ${RESULT_DIR}/run_status
+    - echo "not end" > ${RESULT_DIR}/excel_url.txt
+    - git add .
+    - git commit -m "not start to run"
+    - git push
+    - cd ..
 
     # docker
     - docker build -t ritboy/upload-to-alioss .
@@ -35,6 +42,7 @@ install:
 after_failure:
     - ls -alh
     - echo "failure" > ${RESULT_DIR}/run_status
+    - echo "failure, please try again" > ${RESULT_DIR}/excel_url.txt
     - cd ${RESULT_DIR}
     - git add .
     - git commit -m "run failure"
