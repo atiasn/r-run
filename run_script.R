@@ -12,4 +12,4 @@ sm$Abstract <- gsub(","," ",sm$Abstract,fixed = TRUE)
 str(sm)
 
 library(openxlsx)
-write.xlsx(sm,file = ' sm.xlsx')
+write.xlsx(sm,file = 'sm.xlsx')
