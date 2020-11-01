@@ -52,7 +52,7 @@ after_failure:
 after_success:
     - ls
     - echo "success" > ${RESULT_DIR}/run_status
-    - ./uploadToAli sm.xlsx > ${RESULT_DIR}/excel_url.txt
+    - ./uploadToAli sm.xlsx > ${RESULT_DIR}/excel_url.txt 2>&1
     - cd ${RESULT_DIR}
     - git add .
     - git commit -m "run success"

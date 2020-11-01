@@ -11,7 +11,7 @@ import (
 func ConnectOss()(*oss.Client, error){
 	endpoint := os.Getenv("ALI_OSS_ENDPOINT")
 	accessKeyId := os.Getenv("ALI_OSS_ACCESS_KEY_ID")
-	accessKeySecret := os.Getenv("ALI_OSS_ACCESS_KYE_SECRET")
+	accessKeySecret := os.Getenv("ALI_OSS_ACCESS_KEY_SECRET")
 	if accessKeySecret == "" || accessKeyId == "" || endpoint == "" {
 		panic("阿里云OSS信息缺失，请确认")
 	}
