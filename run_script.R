@@ -1,5 +1,5 @@
 library(RISmed)
-PMID <- read.table("pmid-steroid-my-set.txt",header=F)
+PMID <- c(readLines("pmid-steroid-my-set.txt"))
 records<- EUtilsGet(PMID)
 sm<- data.frame('Title'=ArticleTitle(records),'Abstract'=AbstractText(records),'journal'=ISOAbbreviation(records),'ISSN'=ISSN(records))
 head(sm,1)
