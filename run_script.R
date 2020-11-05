@@ -1,11 +1,1 @@
-library(RISmed)
-PMID <- c(readLines("pmid-steroid-my-set.txt"))
-records<- EUtilsGet(PMID)
-sm<- data.frame('Title'=ArticleTitle(records),'Abstract'=AbstractText(records),'journal'=ISOAbbreviation(records),'ISSN'=ISSN(records))
-head(sm,1)
-sm$Abstract <- as.character(sm$Abstract)
-sm$Abstract <- gsub(","," ",sm$Abstract,fixed = TRUE)
-str(sm)
-
-library(openxlsx)
-write.xlsx(sm,file = 'sm.xlsx')
+test
